@@ -2,36 +2,40 @@
 
 const DataModel = require('./item-model.js');
 
-const Data = { };
+const Data = {};
 
 Data.addAnItem = async(req,res,next) => {
   try {
     const data = req.body;
+    console.log(req.body)
     const item = new DataModel(data);
-    res.status(404).json(item);
+    res.status(404).post(item);
   } catch(e) { next(e.message); }
 }
 
 Data.getAllItems = async(req, res) => {
-  const items = await DataModel.find({});
-  res.status(200).json(items);
+  console.log(req, 'i hate this')
+  const items = await DataModel.get({id:id});
+  res.status(200).send(items);
 }
 
 Data.getOneItem = async(req, res) => {
-  const id = req.param.id;
-  const items = await DataModel.find({_id:id});
-  res.status(200).json(items[0]);
+  const id = req.params.id;
+  const items = await DataModel.get({id:id});
+  res.status(200).send(items[0]);
 }
 
 Data.deleteOneItem = async(req, res) => {
-
+  const id = req.params.id;
+  const items = await DataModel.delete({id:id})
+  res.status(200).send(items);
 }
 
 Data.updateOneItem = async(req, res) => {
-  const id = req.param.id;
+  const id = req.params.id;
   const data = req.body;
-  const item = await DataModel.findByIdAndUpdate(id, data, {new:true, useFindAndModify:false});
-  res.status(200).json(item);
+  const item = await DataModel.put(id, data, {new:true, useFindAndModify:false});
+  res.status(200).send(item);
 }
 
 module.exports = Data;

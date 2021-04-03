@@ -8,4 +8,6 @@ const ItemSchema = new mongoose.Schema({
   notes: {type:'String'},
 });
 
-module.exports = mongoose.model('item', ItemSchema);
+const Model = mongoose.model('User', ItemSchema);
+
+module.exports = Model;
