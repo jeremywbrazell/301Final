@@ -8,6 +8,6 @@ const ItemSchema = new mongoose.Schema({
   notes: {type:'String'},
 });
 
-const Model = mongoose.model('User', ItemSchema);
+const DataModel = mongoose.model('item', ItemSchema);
 
-module.exports = Model;
+module.exports = DataModel;
